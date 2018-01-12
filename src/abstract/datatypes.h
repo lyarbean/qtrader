@@ -3,46 +3,44 @@
 namespace oz {
 class TickInfo {
 public:
-    virtual ~TickInfo() {};
+    virtual ~TickInfo(){};
     virtual double averagePrice() const = 0;
 };
 
 class TradeInfo {
 public:
-    virtual ~TradeInfo() {};
+    virtual ~TradeInfo(){};
 };
 
 class OrderInfo {
 public:
-    virtual ~OrderInfo() {};
+    virtual ~OrderInfo(){};
 };
 
 class AccountInfo {
 public:
-    virtual ~AccountInfo() {};
+    virtual ~AccountInfo(){};
 };
 
 class PoisitionInfo {
 public:
-    virtual ~PoisitionInfo() {};
+    virtual ~PoisitionInfo(){};
 };
-
 
 class LogInfo {
 public:
-    virtual ~LogInfo() {};
+    virtual ~LogInfo(){};
 };
 
 class ContractInfo {
 public:
-    virtual ~ContractInfo() {};
+    virtual ~ContractInfo(){};
 };
 
 class OrderRequest {
 public:
-    virtual ~OrderRequest() {};
+    virtual ~OrderRequest(){};
 };
 
-
-}
+} // namespace oz
 #endif // OZ_DATATYPE_H

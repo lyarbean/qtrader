@@ -7,14 +7,13 @@ class TradeInfo;
 class OrderInfo;
 
 class EngineAbstract;
-class StrategyAbstract
-{
+class StrategyAbstract {
 public:
-virtual void setEngine(EngineAbstract* engine) = 0;
-virtual void onTick(TickInfo* info) = 0;
-virtual void onTrade(TradeInfo* info) = 0;
-virtual void onOrder(OrderInfo* info) = 0;
+    virtual void setEngine(EngineAbstract* engine) = 0;
+    virtual void onTick(TickInfo* info) = 0;
+    virtual void onTrade(TradeInfo* info) = 0;
+    virtual void onOrder(OrderInfo* info) = 0;
 };
-}
+} // namespace oz
 
 #endif // OZ_STRATEGYABSTRACT_H

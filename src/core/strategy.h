@@ -3,9 +3,7 @@
 
 namespace oz {
 
-class Strategy
-{
-};
-}
+class Strategy {};
+} // namespace oz
 
 #endif // OZ_STRATEGY_H

@@ -5,17 +5,17 @@
 namespace oz {
 class StrategyAbstract;
 
-class DefaultEnginePrivate
-{
+class DefaultEnginePrivate {
 public:
     DefaultEnginePrivate(DefaultEngine* q);
     virtual ~DefaultEnginePrivate();
+
 private:
     friend class DefaultEngine;
     DefaultEngine* const q;
     QMap<QUuid, StrategyAbstract*> strategies;
     QMap<QUuid, GatewayAbstract*> gateways;
 };
-}
+} // namespace oz
 
 #endif // DEFAULTENGINEPRIVATE_H

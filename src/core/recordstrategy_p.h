@@ -3,8 +3,7 @@
 
 namespace oz {
 
-class RecordStrategyPrivate
-{
+class RecordStrategyPrivate {
 public:
     RecordStrategyPrivate(RecordStrategy* q);
     virtual ~RecordStrategyPrivate();
@@ -12,6 +11,6 @@ public:
 private:
     class RecordStrategy* const q;
 };
-}
+} // namespace oz
 
 #endif // RECORDSTRATEGYPRIVATE_H
