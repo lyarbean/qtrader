@@ -15,6 +15,8 @@ public:
     virtual QUuid addGateway(GatewayAbstract* gateway) override;
     virtual RiskManager* riskManager() const override;
     virtual PositionManager* positionManager() const override;
+
+public slots:
     virtual void onTick(TickInfo* info) override;
     virtual void onTrade(TradeInfo* info) override;
     virtual void onOrder(OrderInfo* info) override;

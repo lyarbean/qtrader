@@ -12,10 +12,15 @@ RecordStrategyPrivate::~RecordStrategyPrivate() {
 RecordStrategy::RecordStrategy()
   : d(new RecordStrategyPrivate(this)) {
 }
+
 void RecordStrategy::onTick(TickInfo* info) {
 }
 
 void RecordStrategy::onTrade(TradeInfo* info) {
 }
 void RecordStrategy::onOrder(OrderInfo* info) {
+}
+
+void RecordStrategy::setEngine(EngineAbstract* engine) {
+    d->engine = engine;
 }

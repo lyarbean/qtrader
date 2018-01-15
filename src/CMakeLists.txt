@@ -4,7 +4,8 @@ target_link_libraries(qtrader Qt5::Qml Qt5::Gui)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(ABSTRACT_SRC abstract/engineabstract.cpp abstract/engineabstract.cpp abstract/gatewayabstract.cpp abstract/strategyabstract.cpp)
-set(CORE_SRC core/defaultengine.cpp core/recordstrategy.cpp)
-add_library(dummy ${ABSTRACT_SRC} ${CORE_SRC})
+set(CORE_SRC core/defaultengine.cpp core/recordstrategy.cpp core/riskmanager.cpp)
+set(APP_SRC app/sinagateway.cpp app/sinadatatypes.cpp)
+add_library(dummy ${ABSTRACT_SRC} ${CORE_SRC} ${APP_SRC})
 target_link_libraries(dummy Qt5::Core)
 

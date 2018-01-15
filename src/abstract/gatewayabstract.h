@@ -25,13 +25,13 @@ public:
     virtual void cancelOrder(CancelOrderRequest* request) = 0;
     virtual void Subscribe(SubscribeRequest* request) = 0;
 signals:
-    void onTick(TickInfo* info);
-    void onTrade(TradeInfo* info);
-    void onOrder(OrderInfo* info);
-    void onPoisition(PoisitionInfo* info);
-    void onAccount(AccountInfo* info);
-    void onContract(ContractInfo* info);
-    void onLog(LogInfo* info);
+    void hasTick(TickInfo* info);
+    void hasTrade(TradeInfo* info);
+    void hasOrder(OrderInfo* info);
+    void hasPoisition(PoisitionInfo* info);
+    void hasAccount(AccountInfo* info);
+    void hasContract(ContractInfo* info);
+    void hasLog(LogInfo* info);
 };
 } // namespace oz
 

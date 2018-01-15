@@ -3,7 +3,7 @@
 #include "abstract/strategyabstract.h"
 #include "abstract/gatewayabstract.h"
 #include "abstract/datatypes.h"
-
+#include "riskmanager.h"
 using namespace oz;
 
 DefaultEnginePrivate::DefaultEnginePrivate(DefaultEngine* q)
@@ -34,13 +34,13 @@ QUuid DefaultEngine::addStrategy(StrategyAbstract* strategy) {
 QUuid DefaultEngine::addGateway(GatewayAbstract* gateway) {
     QUuid uuid = QUuid::createUuid();
     d->gateways[uuid] = gateway;
-    connect(gateway, &GatewayAbstract::onTick, this, &DefaultEngine::onTick);
-    connect(gateway, &GatewayAbstract::onTrade, this, &DefaultEngine::onTrade);
-    connect(gateway, &GatewayAbstract::onOrder, this, &DefaultEngine::onOrder);
-    connect(gateway, &GatewayAbstract::onPoisition, this, &DefaultEngine::onPoisition);
-    connect(gateway, &GatewayAbstract::onAccount, this, &DefaultEngine::onAccount);
-    connect(gateway, &GatewayAbstract::onContract, this, &DefaultEngine::onContract);
-    connect(gateway, &GatewayAbstract::onLog, this, &DefaultEngine::onLog);
+    connect(gateway, &GatewayAbstract::hasTick, this, &DefaultEngine::onTick);
+    connect(gateway, &GatewayAbstract::hasTrade, this, &DefaultEngine::onTrade);
+    connect(gateway, &GatewayAbstract::hasOrder, this, &DefaultEngine::onOrder);
+    connect(gateway, &GatewayAbstract::hasPoisition, this, &DefaultEngine::onPoisition);
+    connect(gateway, &GatewayAbstract::hasAccount, this, &DefaultEngine::onAccount);
+    connect(gateway, &GatewayAbstract::hasContract, this, &DefaultEngine::onContract);
+    connect(gateway, &GatewayAbstract::hasLog, this, &DefaultEngine::onLog);
     return uuid;
 }
 
@@ -74,28 +74,45 @@ void DefaultEngine::onOrder(OrderInfo* info) {
 }
 
 void DefaultEngine::sendOrder(OrderRequest* request, const QUuid& gateway) {
-    // d->riskManager->check()
-    auto g = d->gateways.find(gateway);
-    if (g == d->gateways.end()) {
+    if (!d->riskManager->check(request, gateway)) {
+        // TODO 
+        // request->status = HasRisk;
         return;
     }
-    g.value()->sendOrder(request); // gateway take the ownership of request
+    auto g = d->gateways.find(gateway);
+    if (g == d->gateways.end()) {
+        // TODO 
+        // request->status = NoGatway;
+        return;
+    }
+    g.value()->sendOrder(request); // ownership return to caller (strategy)
 }
 
 void DefaultEngine::cancelOrder(CancelOrderRequest* request, const QUuid& gateway) {
     // d->riskManager->check()
     auto g = d->gateways.find(gateway);
     if (g == d->gateways.end()) {
+        // TODO 
+        // request->status = NoGatway;
         return;
     }
-    g.value()->cancelOrder(request); // gateway take the ownership of request
+    g.value()->cancelOrder(request); // ownership return to caller (strategy)
 }
+
+// TODO use a map to ease onTick
+// {strategy + gateway => symbol}
+// {symbol + gateway ==> strategy}
+// When a gateway emits a TickInfo, it adds gatewayname to TickInfo::gateway
+// SubscribeRequest has a uuid to indicate which strategy sends the request
+
 
 void DefaultEngine::Subscribe(SubscribeRequest* request, const QUuid& gateway) {
     // d->riskManager->check()
     auto g = d->gateways.find(gateway);
     if (g == d->gateways.end()) {
+        // TODO 
+        // request->status = NoGatway;
         return;
     }
-    g.value()->Subscribe(request); // gateway take the ownership of request
+    g.value()->Subscribe(request); // ownership return to caller (strategy)
 }
