@@ -3,7 +3,7 @@
 #include "abstract/strategyabstract.h"
 namespace oz {
 class RecordStrategyPrivate;
-class RecordStrategy : StrategyAbstract {
+class RecordStrategy : public StrategyAbstract {
 public:
     RecordStrategy();
     virtual void setEngine(EngineAbstract* engine);

@@ -10,10 +10,13 @@ DefaultEnginePrivate::DefaultEnginePrivate(DefaultEngine* q)
   : q(q) {
 }
 DefaultEnginePrivate::~DefaultEnginePrivate() {
+    thread.quit();
 }
 
 DefaultEngine::DefaultEngine()
   : d(new DefaultEnginePrivate(this)) {
+    moveToThread(&d->thread);
+    d->thread.start();
 }
 
 DefaultEngine::~DefaultEngine() {
@@ -72,6 +75,23 @@ void DefaultEngine::onOrder(OrderInfo* info) {
     }
     delete info;
 }
+
+void DefaultEngine::onPoisition(PoisitionInfo* info)
+{
+}
+
+void DefaultEngine::onAccount(AccountInfo* info)
+{
+}
+
+void DefaultEngine::onContract(ContractInfo* info)
+{
+}
+
+void DefaultEngine::onLog(LogInfo* info)
+{
+}
+
 
 void DefaultEngine::sendOrder(OrderRequest* request, const QUuid& gateway) {
     if (!d->riskManager->check(request, gateway)) {

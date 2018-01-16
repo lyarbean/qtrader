@@ -9,8 +9,10 @@ class SubscribeRequest;
 
 class SinaGateway : public GatewayAbstract
 {
+    Q_OBJECT
 public:
     SinaGateway();
+    ~SinaGateway();
     virtual void connectServer() override;
     virtual void closeServer() override;
     virtual void queryAccount() override;
@@ -18,6 +20,8 @@ public:
     virtual void sendOrder(OrderRequest* request) override;
     virtual void cancelOrder(CancelOrderRequest* request) override;
     virtual void Subscribe(SubscribeRequest* request) override;
+protected slots:
+    void pull();
 private:
     class SinaGatewayPrivate* const d;
 };

@@ -1,7 +1,7 @@
 #ifndef DEFAULTENGINEPRIVATE_H
 #define DEFAULTENGINEPRIVATE_H
 #include <QMap>
-
+#include <QThread>
 namespace oz {
 class StrategyAbstract;
 class RiskManager;
@@ -13,6 +13,7 @@ public:
 private:
     friend class DefaultEngine;
     DefaultEngine* const q;
+    QThread thread;
     RiskManager* riskManager;
     QMap<QUuid, StrategyAbstract*> strategies;
     QMap<QUuid, GatewayAbstract*> gateways;

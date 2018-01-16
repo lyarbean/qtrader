@@ -1,10 +1,12 @@
 #include "sinadatatypes.h"
 #include <QStringList>
+#include <QDebug>
 namespace oz {
 class SinaTickInfoPrivate {
 public:
     void parse(const QString& source);
     QString ticker;
+    QString tickerName;
     double averagePrice;
     double lastPrice;
     double preClosePrice;
@@ -30,11 +32,13 @@ public:
 
 void SinaTickInfoPrivate::parse(const QString& source) {
     QStringList items = source.split(',');
-    if (items.count() != 32) { // TODO
+    if (items.count() != 33) { // TODO
+        // qCritical() << items.count();
         return;
     }
     // 0
     ticker = items.value(0).mid(11, 8);
+    tickerName = items.value(0).mid(21);
     // 1
     openPrice = items.value(1).toDouble();
     // 2
@@ -81,6 +85,10 @@ SinaTickInfo::~SinaTickInfo () {
 
 QString SinaTickInfo::ticker() const {
     return d->ticker;
+}
+
+QString SinaTickInfo::tickerName() const {
+    return d->tickerName;
 }
 
 double SinaTickInfo::averagePrice() const {
@@ -161,6 +169,23 @@ qint32 SinaTickInfo::millisecond() const {
 
 quint64 SinaTickInfo::msecsSinceEpoch() const {
     return 0;
+}
+
+class SinaSubscribeRequestPrivate {
+public:
+    QString ticker;
+};
+
+SinaSubscribeRequest::SinaSubscribeRequest(const QString& ticker) : d (new SinaSubscribeRequestPrivate) {
+    d->ticker = ticker;
+}
+
+SinaSubscribeRequest::~SinaSubscribeRequest() {
+    delete d;
+}
+
+QString SinaSubscribeRequest::ticker() const {
+    return d->ticker;
 }
 
 }

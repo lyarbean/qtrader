@@ -1,6 +1,6 @@
 #ifndef RECORDSTRATEGYPRIVATE_H
 #define RECORDSTRATEGYPRIVATE_H
-
+#include <QMap>
 namespace oz {
 class EngineAbstract;
 class RecordStrategy;
@@ -10,6 +10,8 @@ public:
     virtual ~RecordStrategyPrivate();
     RecordStrategy* const q;
     EngineAbstract* engine;
+    QMap<QString, double> bidPrice;
+    QMap<QString, double> askPrice;
 };
 } // namespace oz
 

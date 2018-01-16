@@ -9,6 +9,7 @@ public:
     explicit SinaTickInfo(const QString& source);
     ~SinaTickInfo();
     virtual QString ticker() const override;
+    virtual QString tickerName() const override;
     void setTicker(QString&);
     virtual double averagePrice() const override;
     virtual double lastPrice() const override;
@@ -67,6 +68,16 @@ public:
 class SinaOrderRequest {
 public:
     virtual ~ SinaOrderRequest(){};
+};
+
+
+class SinaSubscribeRequest: public SubscribeRequest {
+public:
+    explicit SinaSubscribeRequest(const QString& ticker);
+    virtual ~SinaSubscribeRequest();
+    QString ticker() const override;
+private:
+    class SinaSubscribeRequestPrivate* d;
 };
 
 } // namespace oz

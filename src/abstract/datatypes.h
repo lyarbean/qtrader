@@ -19,6 +19,7 @@ public:
     };
     virtual ~TickInfo() {}
     virtual QString ticker() const = 0;
+    virtual QString tickerName() const = 0;
     virtual double averagePrice() const = 0;
     virtual double lastPrice() const = 0;
     virtual double preClosePrice() const = 0;
@@ -76,5 +77,10 @@ public:
     virtual ~OrderRequest(){};
 };
 
+class SubscribeRequest {
+public:
+    virtual ~SubscribeRequest(){};
+    virtual QString ticker() const = 0;
+};
 } // namespace oz
 #endif // OZ_DATATYPE_H
